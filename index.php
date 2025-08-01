@@ -243,7 +243,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && empty($errorLogin)) {
         </div>
         
         <button type="submit" class="btn btn-login w-100">
-            <i class="fa-solid fa-right-to-bracket me-2"></i>Iniciar sesión
+            <i class="fa-solid fa-right-to-bracket me-2"></i>Iniciar 
         </button>
     </form>
 </div>
