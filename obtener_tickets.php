@@ -1,4 +1,4 @@
-<?php 
+<?php  
 session_start();
 date_default_timezone_set('America/Santo_Domingo');
 
@@ -6,23 +6,31 @@ if (!isset($_SESSION['usuario'])) {
     die("Acceso no autorizado.");
 }
 
+<<<<<<< HEAD:obtener_tickets.php
 // Conexión directa a SQL Server
 $serverName = "sdb-apptransportistas-maco.database.windows.net";
 $database = "db-apptransportistas-maco";
 $username = "ServiceAppTrans";
 $password = "⁠nZ(#n41LJm)iLmJP";
+=======
+$serverName = "sdb-apptransportistas-maco.privatelink.database.windows.net";
+$database = "db-apptransportistas-maco";
+$username = "ServiceAppTrans";
+$password = "nZ(#n41LJm)iLmJP"; 
+>>>>>>> 6175eff6fb6f5fbdc9b0198b0e131bc2a534cf49:obtener_tikets.php
 
 $connectionInfo = array(
     "Database" => $database,
     "UID" => $username,
     "PWD" => $password,
-    "TrustServerCertificate" => true
+    "TrustServerCertificate" => true,
+    "CharacterSet" => "UTF-8"
 );
 
 $conn = sqlsrv_connect($serverName, $connectionInfo);
 
 if (!$conn) {
-    die("Error de conexión: " . print_r(sqlsrv_errors(), true));
+    die("❌ Error de conexión: " . print_r(sqlsrv_errors(), true));
 }
 
 $sql = "SELECT l.Tiket, l.NombreTR, f.Cedula, f.Matricula, l.Empresa, l.Asignar, l.Estatus 
@@ -32,7 +40,7 @@ $sql = "SELECT l.Tiket, l.NombreTR, f.Cedula, f.Matricula, l.Empresa, l.Asignar,
 $result = sqlsrv_query($conn, $sql);
 
 if ($result === false) {
-    die("Error al ejecutar la consulta: " . print_r(sqlsrv_errors(), true));
+    die("❌ Error al ejecutar la consulta: " . print_r(sqlsrv_errors(), true));
 }
 
 while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
@@ -71,7 +79,7 @@ while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
     echo "<td class='estatus'>
         <select class='form-select estatus-select' data-tiket='$tiket' $selectDisabled>
             <option value=' ' " . ($estatus == ' ' ? 'selected' : '') . "> </option>
-            <option value='Verificación de pedido' " . ($estatus == 'Verificación de pedido' ? 'selected' : '') . ">Verificación de pedido</option>
+            <option value='Verificación de pedido' " . ($estatus == 'Verificación de pedido' ? 'selected' : '') . ">Verificación en proceso</option>
             <option value='Pedido preparandose' " . ($estatus == 'Pedido preparandose' ? 'selected' : '') . ">Pedido preparándose</option>
             <option value='En proceso de empaque' " . ($estatus == 'En proceso de empaque' ? 'selected' : '') . ">En proceso de empaque</option>
             <option value='Facturación' " . ($estatus == 'Facturación' ? 'selected' : '') . ">Facturación</option>
