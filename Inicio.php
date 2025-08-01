@@ -16,7 +16,7 @@ if (isset($_GET['logout'])) {
     $_SESSION = [];
     session_unset();
     session_destroy();
-    header("Location: ../View/index.php");
+    header("Location: index.php");
     exit();
 }
 
@@ -34,19 +34,44 @@ header("Expires: 0");
     <title>Pantalla de Tickets</title>
     <link rel="icon" href="../IMG/favicon.ico">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../View/styles2.css">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <style>
         .btn-action { width: 100%; }
         .time-cell { font-weight: bold; }
+        
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to top, #ffffff, #e31f25);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+
     </style>
 </head>
 <body>
 <div class="container bg-white mt-2 p-2 mb-3 rounded shadow">
     <div class="d-flex justify-content-between align-items-center mb-1">
-        <div><img src="../IMG/LOGO MC - NEGRO.png" alt="Logo" class="img-fluid" style="max-height: 120px;"></div>
         <h1 class="mt-3 text-dark">Bienvenido, <?php echo htmlspecialchars($_SESSION['usuario']); ?>!</h1>
-        <div><a href="../Logica/logout.php" class="btn btn-danger">Cerrar Sesión</a></div>
+        <div><a href="index.php" class="btn btn-danger">Cerrar Sesión</a></div>
     </div>
 </div>
 
@@ -105,7 +130,7 @@ const usuarioSesion = "<?php echo $_SESSION['usuario']; ?>";
 let timers = {}, retencionClicks = {}, retencionBloqueado = {};
 
 function cargarTickets() {
-    $.get('../Logica/obtener_tickets.php', function(response) {
+    $.get('obtener_tickets.php', function(response) {
         $('#tablaTickets tbody').html(response);
         $('#tablaTickets tbody tr').each(function() {
             let fila = $(this);
@@ -133,7 +158,7 @@ function cargarTickets() {
 
 function despacharTicket(tiket, factura) {
     let tiempo = timers[tiket] || 0;
-    $.post('../Logica/despachar_ticket.php', { tiket, tiempo, factura }, function(response) {
+    $.post('despachar_ticket.php', { tiket, tiempo, factura }, function(response) {
         if (!response.toLowerCase().includes('error')) {
             delete timers[tiket];
             cargarTickets();
@@ -167,7 +192,7 @@ $(document).ready(function () {
 
         if (seFue) {
             let codigoIngresado = $('#codigoSeFue').val().trim();
-            if (codigoIngresado !== 'LogisicA*2025*') {
+            if (codigoIngresado !== '12345') {
                 alert('Código incorrecto para despachar como "Se fue".');
                 return;
             }
@@ -227,13 +252,13 @@ $(document).ready(function () {
 });
 
 function cambiarEstatus(tiket, nuevoEstatus) {
-    $.post('../Logica/actualizar_estatus.php', { tiket, estatus: nuevoEstatus }, function(response) {
+    $.post('actualizar_estatus.php', { tiket, estatus: nuevoEstatus }, function(response) {
         console.log("Estatus actualizado: " + response);
     });
 }
 
 function asignarTicket(tiket) {
-    $.post('../Logica/asignar_ticket.php', { tiket }, function() {
+    $.post('asignar_ticket.php', { tiket }, function() {
         cargarTickets();
     });
 }
@@ -244,7 +269,7 @@ function manejarRetencion(tiket, boton) {
     $(boton).prop('disabled', true);
     let contador = retencionClicks[tiket] || 0;
     if (contador === 0) {
-        $.post('../Logica/accion_retencion.php', { tiket, accion: 'insertar' }, function(response) {
+        $.post('accion_retencion.php', { tiket, accion: 'insertar' }, function(response) {
             retencionClicks[tiket] = 1;
             $('#row_' + tiket).addClass('table-danger');
             $('#row_' + tiket + ' .estatus').text('Retención');
@@ -252,7 +277,7 @@ function manejarRetencion(tiket, boton) {
             retencionBloqueado[tiket] = false;
         });
     } else if (contador === 1) {
-        $.post('../Logica/accion_retencion.php', { tiket, accion: 'actualizar' }, function(response) {
+        $.post('accion_retencion.php', { tiket, accion: 'actualizar' }, function(response) {
             retencionClicks[tiket] = 2;
             $('#row_' + tiket).removeClass('table-danger');
             $('#row_' + tiket + ' .estatus').text('En Proceso');
