@@ -6,10 +6,18 @@ if (!isset($_SESSION['usuario'])) {
     die("Acceso no autorizado.");
 }
 
+<<<<<<< HEAD:obtener_tickets.php
+// Conexión directa a SQL Server
+$serverName = "sdb-apptransportistas-maco.database.windows.net";
+$database = "db-apptransportistas-maco";
+$username = "ServiceAppTrans";
+$password = "⁠nZ(#n41LJm)iLmJP";
+=======
 $serverName = "sdb-apptransportistas-maco.privatelink.database.windows.net";
 $database = "db-apptransportistas-maco";
 $username = "ServiceAppTrans";
 $password = "nZ(#n41LJm)iLmJP"; 
+>>>>>>> 6175eff6fb6f5fbdc9b0198b0e131bc2a534cf49:obtener_tikets.php
 
 $connectionInfo = array(
     "Database" => $database,
