@@ -7,18 +7,16 @@ if (!isset($_SESSION['usuario'])) {
     exit();
 }
 
-// Conexión directa a SQL Server
-$serverName = "sdb-apptransportistas-maco.privatelink.database.windows.net";
+$serverName = "sdb-apptransportistas-maco.database.windows.net";
 $database = "db-apptransportistas-maco";
 $username = "ServiceAppTrans";
-$password = "nZ(#n41LJm)iLmJP";
+$password = "⁠nZ(#n41LJm)iLmJP";
 
 $connectionInfo = array(
     "Database" => $database,
     "UID" => $username,
     "PWD" => $password,
-    "TrustServerCertificate" => true,
-    "CharacterSet" => "UTF-8"
+    "TrustServerCertificate" => true
 );
 
 $conn = sqlsrv_connect($serverName, $connectionInfo);

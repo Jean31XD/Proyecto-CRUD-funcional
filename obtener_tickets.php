@@ -1,13 +1,16 @@
 <?php 
 session_start();
-date_default_timezone_set(timezoneId: 'America/Santo_Domingo');
-
+date_default_timezone_set('America/Santo_Domingo');
 
 if (!isset($_SESSION['usuario'])) {
     die("Acceso no autorizado.");
 }
 
-require_once __DIR__ . '/../conexionBD/conexion.php';
+// Conexión directa a SQL Server
+$serverName = "sdb-apptransportistas-maco.database.windows.net";
+$database = "db-apptransportistas-maco";
+$username = "ServiceAppTrans";
+$password = "⁠nZ(#n41LJm)iLmJP";
 
 $connectionInfo = array(
     "Database" => $database,

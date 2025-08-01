@@ -74,14 +74,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && empty($errorLogin)) {
                 unset($_SESSION['ultimo_intento']);
 
                 switch ($row['pantalla']) {
-                    case 0: header("Location: View/Admin.php"); break;
-                    case 1: header("Location: View/Inicio.php"); break;
-                    case 2: header("Location: View/facturas.php"); break;
-                    case 3: header("Location: View/CXC.php"); break;
-                    case 4: header("Location: View/Reporte.php"); break;
-                    case 5: header("Location: View/Paneladmin.php"); break;
-                    case 6: header("Location: View/BI.php"); break;
-                    default: header("Location: View/Inicio.php"); break; 
+                    case 0: header("Location: Inicio.php"); break;
+                    case 1: header("Location: Inicio.php"); break;
+                    
                 }
                 exit(); 
             } else {
@@ -222,7 +217,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && empty($errorLogin)) {
 <div class="login-container animate__animated animate__fadeInUp">
     <form method="POST" action="">
         <div class="text-center mb-4">
-             <img src="IMG/LOGO MC - BLANCO.png" class="img-fluid mb-3" alt="LOGO" style="max-width: 300px;">
              <h1 class="h3 mb-3 login-title">Bienvenido</h1>
         </div>
 
