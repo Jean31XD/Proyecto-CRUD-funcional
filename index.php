@@ -130,7 +130,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && empty($errorLogin)) {
             align-items: center;
             min-height: 100vh;
             color: #fff;
-            background: linear-gradient(-45deg, #ff0000ff, #cb1717ef, #bb1b1bff, #751010ff);
+            background: linear-gradient(-45deg, #ff0000ff, #cb1717ef, #d46e6eff, #751010ff);
             background-size: 400% 400%;
             animation: gradientBG 15s ease infinite;
         }
